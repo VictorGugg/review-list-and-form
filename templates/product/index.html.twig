@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('menus') }}
+{% endblock %}
+
+{% block title %}Liste des produits
+{% endblock %}
+
+{% block body %}
+	{% for product in products %}
+		<div>
+			<h2>{{ loop.index }}
+				-
+				<a href="{{ path("product_show",) }}">
+					{{ product.name }}</a>
+			</h2>
+		</div>
+	{% endfor %}
+{% endblock %}

@@ -38,9 +38,24 @@ Champs de l'entité Review :
 2.Affichage
 
 Mettre en forme une page produit-avis, qui devra comporter :
--Affichage du produit (nom, photo, note)
--Liste des avis (pseudo, note, commentaire, image, date)
--Formulaire d'ajout d'avis
+=== Affichage du produit ===
+-nom
+-photo
+-note
+
+=== Liste des avis ===
+-pseudo
+-note
+-commentaire
+-image
+-date
+
+=== Formulaire d'ajout d'avis ===
+-email
+-pseudo
+-note
+-commentaire (avec possibilité de mise en forme)
+-upload de photo
 (optionnel : si e-mail identique trouvée, proposer de remplacer l'ancien avis par le nouveau)
 
 3.Styling
