@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit
+{% endblock %}
+
+{% block body %}
+	<h1>Produit</h1>
+
+	<img src="{{ asset('build/"{{ product.image }}"') }}" alt="{{ product.name }}" width="300" height="100%">
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Nom</th>
+				<td>{{ product.name }}</td>
+			</tr>
+			<tr>
+				<th>Note</th>
+				<td>{{ product.rating }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h2>Liste des avis</h2>
+
+	{% for review in reviews %}
+
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>{{ review.pseudo }}</th>
+					<th>{{ review.datetime }}</th>
+				</tr>
+				<tr>
+					<th>Note</th>
+					<td>{{ review.user_rating }}</td>
+				</tr>
+				<tr>
+					<th>Commentaire</th>
+					<td>{{ review.comment }}</td>
+				</tr>
+				<tr>
+					<th>Image</th>
+					<td>{{ review.picture }}</td>
+				</tr>
+			</tbody>
+		</table>
+
+	{% else %}
+		<p>Il n'existe pas encore d'avis sur ce produit. Donnez le vôtre !</p>
+	{% endfor %}
+
+
+	<a href="{{ path('app_review_new') }}">Noter le produit</a>
+
+	<a href="{{ path('app_product_index') }}">Retour à la liste des produits</a>
+{% endblock %}
