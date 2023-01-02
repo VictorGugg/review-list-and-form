@@ -41,7 +41,8 @@
 				</tr>
 				<tr>
 					<th>Image</th>
-					<td>{{ review.picture }}</td>
+					{# Linking the src to the dynamic URL of the stored image #}
+					<td><img src="{{ asset('uploads/' ~ review.picture) }}" alt='Image envoyée par un utilisateur' class='user-img'></td>
 				</tr>
 			</tbody>
 		</table>

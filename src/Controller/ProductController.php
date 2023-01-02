@@ -7,10 +7,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/product')]
+#[Route('/product', name: 'product_')]
 final class ProductController extends AbstractController
 {
-    #[Route('/', name: 'app_product_index')]
+    #[Route('/', name: 'index')]
     public function index(ProductRepository $productRepository): Response
     {
         return $this->render('product/index.html.twig', [

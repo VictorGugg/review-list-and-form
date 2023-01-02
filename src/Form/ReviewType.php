@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class ReviewType extends AbstractType
 {
@@ -39,6 +40,21 @@ class ReviewType extends AbstractType
             ])
             ->add('picture', FileType::class, [
                 'label' => 'Image',
+                // optionnal so the user don't have to re-upload when editing the comment
+                'required' => false,
+                // unmapping this field so that Symfony doesn't try to get/set its value from the Review Entity
+                'mapped' => false,
+                // unmapped fields cannot be validated in the entity, so the validation comes here
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2M',
+                        'mimeTypes' => [
+                            'image/*'
+                        ],
+                        'maxSizeMessage' => 'Votre fichier d\'image est trop lourd, il doit faire {{ limit }} ou moins.',
+                        'mimeTypesMessage' => 'Merci de choisir un fichier d\'image valide (JPG, PNG, BMP...)',
+                    ])
+                ]
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Envoyer',

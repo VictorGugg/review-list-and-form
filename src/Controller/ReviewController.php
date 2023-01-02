@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/review', name: 'review_')]
 final class ReviewController extends AbstractController
@@ -28,7 +29,8 @@ final class ReviewController extends AbstractController
     public function new(
         ProductRepository $productRepository,
         Request $request,
-        ReviewRepository $reviewRepository
+        ReviewRepository $reviewRepository,
+        SluggerInterface $slugger
         ): Response
         {
             // GETTING PRODUCT FROM ID
@@ -43,6 +45,27 @@ final class ReviewController extends AbstractController
             // $review->setSubmitDate(new DateTime('d/m/Y'));
 
             if ($form->isSubmitted() && $form->isValid()) {
+                /** @var UploadedFile $pictureFile */
+                $pictureFile = $form->get('picture')->getData();
+
+                // As the picture field is optionnal, managing the image file only when a file is uploaded
+                if ($pictureFile) {
+                    $originalFileName = pathinfo($pictureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    // safely including the file name as part of the URL
+                    $safeFileName = $slugger->slug($originalFileName);
+                    $newFileName = $safeFileName . '-' . uniqid() . '.' . $pictureFile->guessExtension();
+
+                    // Moving the picture where pictures are stored (defined in config/services.yaml)
+                    $pictureFile->move(
+                        $this->getParameter('pictures_directory'),
+                        $newFileName
+                    );
+
+                    // Updating the picture property to store the image file name
+                    $review->setPicture($newFileName);
+                }
+
+                // Saving the review inside the database
                 $reviewRepository->save($review, true);
 
                 // TODO adjust rating of the product based on new rating

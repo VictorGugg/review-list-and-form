@@ -23,9 +23,11 @@ class Review
         nullable: false)]
     private ?Product $product = null;
 
-    #[ORM\Column(
+    #[ORM\Column]
+    #[Assert\Length(
         length: 255,
         maxMessage: 'Votre e-mail est trop long, il ne doit pas faire plus de {{ limit }} caractères.')]
+
     #[Assert\NotBlank(
         message: 'L\'e-mail est nécessaire.')]
     #[Assert\Email(
@@ -35,7 +37,8 @@ class Review
     )]
     private ?string $user_email = null;
 
-    #[ORM\Column(
+    #[ORM\Column]
+    #[Assert\Length(
         length: 50,
         maxMessage: 'Votre pseudo est trop long, il ne doit pas faire plus de {{ limit }} caractères.')]
     #[Assert\NotBlank(
@@ -53,7 +56,8 @@ class Review
     private ?int $user_rating = null;
 
     #[ORM\Column(
-        type: Types::TEXT,
+        type: Types::TEXT)]
+    #[Assert\Length(
         length: 1000,
         maxMessage: 'Votre commentaire est trop long, il ne doit pas faire plus de {{ limit }} caractères.')]
     #[Assert\NotBlank(
@@ -61,8 +65,8 @@ class Review
     private ?string $comment = null;
 
     #[ORM\Column(
-        length: 255,
         nullable: true)]
+    // The validation is in the ReviewType.php as the field of the form is not mapped to this entity.
     private ?string $picture = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]

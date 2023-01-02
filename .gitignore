@@ -18,3 +18,7 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+
+
+# Ignoring all files inside /public/uploads/ while still allowing the directory to be versionned.
+/public/uploads/
