@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\ReviewRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(
     repositoryClass: ReviewRepository::class)]
@@ -22,18 +24,40 @@ class Review
     private ?Product $product = null;
 
     #[ORM\Column(
-        length: 255)]
+        length: 255,
+        maxMessage: 'Votre e-mail est trop long, il ne doit pas faire plus de {{ limit }} caractères.')]
+    #[Assert\NotBlank(
+        message: 'L\'e-mail est nécessaire.')]
+    #[Assert\Email(
+        message: 'L\e-mail {{ value }} n\'est pas d\'un format valide.',
+        // using the regex of the HTML5 email input element as validation
+        mode: 'html5'
+    )]
     private ?string $user_email = null;
 
     #[ORM\Column(
-        length: 255)]
+        length: 50,
+        maxMessage: 'Votre pseudo est trop long, il ne doit pas faire plus de {{ limit }} caractères.')]
+    #[Assert\NotBlank(
+        message: 'Le pseudo est nécessaire.')]
     private ?string $pseudo = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(
+        message: 'La note est nécessaire.')]
+    #[Assert\Range(
+        min: 1,
+        max: 5,
+        notInRangeMessage: 'Veuillez noter de 1 à 5.'
+    )]
     private ?int $user_rating = null;
 
     #[ORM\Column(
-        type: Types::TEXT)]
+        type: Types::TEXT,
+        length: 1000,
+        maxMessage: 'Votre commentaire est trop long, il ne doit pas faire plus de {{ limit }} caractères.')]
+    #[Assert\NotBlank(
+        message: 'Le commentaire est nécessaire.')]
     private ?string $comment = null;
 
     #[ORM\Column(
@@ -41,9 +65,8 @@ class Review
         nullable: true)]
     private ?string $picture = null;
 
-    #[ORM\Column(
-        type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_time = null;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $submitDate = null;
 
     public function getId(): ?int
     {
@@ -122,14 +145,14 @@ class Review
         return $this;
     }
 
-    public function getDateTime(): ?\DateTimeInterface
+    public function getSubmitDate(): ?\DateTimeInterface
     {
-        return $this->date_time;
+        return $this->submitDate;
     }
 
-    public function setDateTime(\DateTimeInterface $date_time): self
+    public function setSubmitDate(\DateTimeInterface $submitDate): self
     {
-        $this->date_time = $date_time;
+        $this->submitDate = $submitDate;
 
         return $this;
     }
