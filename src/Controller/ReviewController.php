@@ -41,7 +41,6 @@ final class ReviewController extends AbstractController
             $form = $this->createForm(ReviewType::class, $review);
             $form->handleRequest($request);
 
-            // TODO setDate
             $review->setSubmitDate(new DateTime('now'));
             $review->setProduct($product[0]);
 
@@ -72,7 +71,7 @@ final class ReviewController extends AbstractController
                 // TODO adjust rating of the product based on new rating
                 // $this->modifyProductRating();
 
-                // TODO make redirectio
+                // TODO make redirection
                 return $this->redirectToRoute('product_show', ($product['id']));
             }
 

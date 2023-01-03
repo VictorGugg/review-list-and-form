@@ -39,6 +39,12 @@ final class ReviewRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Get all ratings for one product selected by ID from database.
+     *
+     * @param integer $productId
+     * @return array
+     */
     public function findAllRatingsByProduct(int $productId): array
     {
         return $this->createQueryBuilder('r')
