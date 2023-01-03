@@ -20,5 +20,7 @@
 ###< symfony/phpunit-bridge ###
 
 
-# Ignoring all files inside /public/uploads/ while still allowing the directory to be versionned.
+# Ignoring all files inside /public/uploads/ while still allowing the directory to be versionned
+# by first creating a .gitignore file inside the directory
+# git adding this .gitignore file and then writing the following line
 /public/uploads/

@@ -29,11 +29,11 @@
 			<tbody>
 				<tr>
 					<th>{{ review.pseudo }}</th>
-					<th>{{ review.datetime }}</th>
+					<th>{{ review.submitdate|date('d/m/Y') }}</th>
 				</tr>
 				<tr>
 					<th>Note</th>
-					<td>{{ review.user_rating }}</td>
+					<td>{{ review.userrating }}</td>
 				</tr>
 				<tr>
 					<th>Commentaire</th>
@@ -52,7 +52,7 @@
 	{% endfor %}
 
 
-	<a href="{{ path('app_review_new') }}">Noter le produit</a>
+	<a href="{{ path('review_new', { 'product_id' : product.id }) }}">Noter le produit</a>
 
-	<a href="{{ path('app_product_index') }}">Retour à la liste des produits</a>
+	<a href="{{ path('product_index') }}">Retour à la liste des produits</a>
 {% endblock %}

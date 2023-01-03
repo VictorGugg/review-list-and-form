@@ -25,7 +25,7 @@ class Review
 
     #[ORM\Column]
     #[Assert\Length(
-        length: 255,
+        max: 255,
         maxMessage: 'Votre e-mail est trop long, il ne doit pas faire plus de {{ limit }} caractères.')]
 
     #[Assert\NotBlank(
@@ -39,7 +39,7 @@ class Review
 
     #[ORM\Column]
     #[Assert\Length(
-        length: 50,
+        max: 50,
         maxMessage: 'Votre pseudo est trop long, il ne doit pas faire plus de {{ limit }} caractères.')]
     #[Assert\NotBlank(
         message: 'Le pseudo est nécessaire.')]
@@ -58,7 +58,7 @@ class Review
     #[ORM\Column(
         type: Types::TEXT)]
     #[Assert\Length(
-        length: 1000,
+        max: 1000,
         maxMessage: 'Votre commentaire est trop long, il ne doit pas faire plus de {{ limit }} caractères.')]
     #[Assert\NotBlank(
         message: 'Le commentaire est nécessaire.')]

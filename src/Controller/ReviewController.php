@@ -17,13 +17,13 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/review', name: 'review_')]
 final class ReviewController extends AbstractController
 {
-    #[Route('/', name: 'index')]
-    public function index(ReviewRepository $reviewRepository): Response
-    {
-        return $this->render('review/index.html.twig', [
-            'reviews' => $reviewRepository->findAll(),
-        ]);
-    }
+//     #[Route('/', name: 'index')]
+//     public function index(ReviewRepository $reviewRepository): Response
+//     {
+//         return $this->render('review/index.html.twig', [
+//             'reviews' => $reviewRepository->findAll(),
+//         ]);
+//     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(
@@ -34,7 +34,7 @@ final class ReviewController extends AbstractController
         ): Response
         {
             // GETTING PRODUCT FROM ID
-            // $product = $productRepository->findById($_GET['product_id']);
+            $product = $productRepository->findById($_GET['product_id']);
 
             // CREATING NEW REVIEW FOR THE PRODUCT
             $review = new Review();
@@ -42,7 +42,8 @@ final class ReviewController extends AbstractController
             $form->handleRequest($request);
 
             // TODO setDate
-            // $review->setSubmitDate(new DateTime('d/m/Y'));
+            $review->setSubmitDate(new DateTime('now'));
+            $review->setProduct($product[0]);
 
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var UploadedFile $pictureFile */
@@ -71,7 +72,8 @@ final class ReviewController extends AbstractController
                 // TODO adjust rating of the product based on new rating
                 // $this->modifyProductRating();
 
-                return $this->redirectToRoute('product_show');
+                // TODO make redirectio
+                return $this->redirectToRoute('product_show', ($product['id']));
             }
 
             return $this->render('review/new.html.twig', [
