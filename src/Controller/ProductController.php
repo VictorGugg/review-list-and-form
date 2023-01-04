@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\Review;
 use App\Repository\ProductRepository;
+use App\Repository\ReviewRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,6 +25,39 @@ final class ProductController extends AbstractController
     public function show(Product $product): Response
     {
         $reviews = $product->getReviews();
+
+        return $this->render('product/show.html.twig', [
+            'product' => $product,
+            'reviews' => $reviews
+        ]);
+    }
+
+    #[Route('/{id}/{rating}', name: 'show_by_rating', methods: ['GET'])]
+    public function showRating(
+        Product $product,
+        ReviewRepository $reviewRepository,
+        $rating): Response
+    {
+        $reviews = $product->getReviews();
+        $reviews = $reviewRepository->findBy(array('user_rating' => $rating), array());
+        
+
+        return $this->render('product/show.html.twig', [
+            'product' => $product,
+            'reviews' => $reviews
+        ]);
+    }
+
+    #[Route('/{id}/{sort}/{order}', name: 'sort_by_order', methods: ['GET'])]
+    public function sortByOrder(
+        Product $product,
+        ReviewRepository $reviewRepository,
+        $sort,
+        $order): Response
+    {
+        $reviews = $product->getReviews();
+        $reviews = $reviewRepository->findBy(array(), array($sort => $order));
+        
 
         return $this->render('product/show.html.twig', [
             'product' => $product,

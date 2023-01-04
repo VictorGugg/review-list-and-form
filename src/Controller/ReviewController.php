@@ -57,7 +57,8 @@ final class ReviewController extends AbstractController
 
                 $this->checkForPictureFile(
                     $review,
-                    $pictureFile,$slugger);
+                    $pictureFile,
+                    $slugger);
 
                 // SAVING THE REVIEW INSIDE THE DATABASE
                 $reviewRepository->save($review, true);
@@ -78,7 +79,20 @@ final class ReviewController extends AbstractController
             ]);
         }
 
-        private function checkForPictureFile($review, $pictureFile, $slugger)
+        /**
+         * Checking if a file has been sent in the form,
+         * in which case : sanitizing the name, the extension
+         * and saving the file inside the app
+         *
+         * @param Review $review
+         * @param [type] $pictureFile
+         * @param [type] $slugger
+         * @return void
+         */
+        private function checkForPictureFile(
+            Review $review,
+            $pictureFile,
+            $slugger)
         {
             // As the picture field is optionnal, managing the image file only when a file is uploaded
             if ($pictureFile) {

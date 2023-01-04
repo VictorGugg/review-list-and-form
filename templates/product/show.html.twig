@@ -26,34 +26,37 @@
 	</table>
 
 	<h2>Liste des avis</h2>
+	<p>Trier par date :
+		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'submitDate', 'order': 'DESC' }) }}">
+			Les plus récents
+		</a>
+		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'submitDate', 'order': 'ASC' }) }}">
+			Les plus anciens
+		</a>
+	</p>
+
+
+	<p>Trier par note :
+		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'user_rating', 'order': 'DESC' }) }}">
+			Les meilleures
+		</a>
+		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'user_rating', 'order': 'ASC' }) }}">
+			Les moins bonnes
+		</a>
+	</p>
+
+	{% set sort = 'ratingAsc' %}
+
+	<p>Afficher seulement les notes :
+		<a href="{{ path('product_show_by_rating', { 'id': product.id, 'rating' : 1 }) }}">1</a>
+		<a href="{{ path('product_show_by_rating', { 'id': product.id, 'rating' : 2 }) }}">2</a>
+		<a href="{{ path('product_show_by_rating', { 'id': product.id, 'rating' : 3 }) }}">3</a>
+		<a href="{{ path('product_show_by_rating', { 'id': product.id, 'rating' : 4 }) }}">4</a>
+		<a href="{{ path('product_show_by_rating', { 'id': product.id, 'rating' : 5 }) }}">5</a>
+	</p>
 
 	{% for review in reviews %}
-
-		<table class="table">
-			<tbody>
-				<tr>
-					<th>{{ review.pseudo }}</th>
-					<th>{{ review.submitdate|date('d/m/Y') }}</th>
-				</tr>
-				<tr>
-					<th>Note</th>
-					<td>{{ review.userrating }}</td>
-				</tr>
-				<tr>
-					<th>Commentaire</th>
-					<td>{{ review.comment }}</td>
-				</tr>
-				{% if not review.picture %}
-					{# Display nothing if there is no picture for this review #}
-				{% else %}
-					<tr>
-						<th>Image</th>
-						{# Linking the src to the dynamic URL of the stored image #}
-						<td><img src="{{ asset('uploads/' ~ review.picture) }}" alt='Image envoyée par un utilisateur' class='user-img' width="200px" max-height="100%"></td>
-					</tr>
-				{% endif %}
-			</tbody>
-		</table>
+		{{ include('product/_reviewTable.html.twig') }}
 
 	{% else %}
 		<p>Il n'existe pas encore d'avis sur ce produit. Donnez le vôtre !</p>
