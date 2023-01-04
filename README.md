@@ -41,13 +41,13 @@ Mettre en forme une page produit-avis, qui devra comporter :
 === Affichage du produit ===
 -nom ✅
 -photo ✅
--note (créer méthode pour calculer la note en récupérant toutes les notes des avis)
+-note (créer méthode pour calculer la note en récupérant toutes les notes des avis) ✅
 
 === Liste des avis ===
 -pseudo ✅
 -note ✅
 -commentaire ✅
--image
+-image ✅
 -date ✅
 
 === Formulaire d'ajout d'avis ===

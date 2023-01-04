@@ -6,7 +6,11 @@
 {% block body %}
 	<h1>Produit</h1>
 
-	<img src="{{ asset('build/"{{ product.image }}"') }}" alt="{{ product.name }}" width="300" height="100%">
+	{% if not product.picture %}
+		{# Display nothing if there is no picture for this product #}
+	{% else %}
+		<img src="{{ asset('build/"{{ product.picture }}"') }}" alt="{{ product.name }}" width="300" height="100%">
+	{% endif %}
 
 	<table class="table">
 		<tbody>
@@ -15,7 +19,7 @@
 				<td>{{ product.name }}</td>
 			</tr>
 			<tr>
-				<th>Note</th>
+				<th>Note moyenne</th>
 				<td>{{ product.rating }}</td>
 			</tr>
 		</tbody>
@@ -39,11 +43,15 @@
 					<th>Commentaire</th>
 					<td>{{ review.comment }}</td>
 				</tr>
-				<tr>
-					<th>Image</th>
-					{# Linking the src to the dynamic URL of the stored image #}
-					<td><img src="{{ asset('uploads/' ~ review.picture) }}" alt='Image envoyée par un utilisateur' class='user-img'></td>
-				</tr>
+				{% if not review.picture %}
+					{# Display nothing if there is no picture for this review #}
+				{% else %}
+					<tr>
+						<th>Image</th>
+						{# Linking the src to the dynamic URL of the stored image #}
+						<td><img src="{{ asset('uploads/' ~ review.picture) }}" alt='Image envoyée par un utilisateur' class='user-img' width="200px" max-height="100%"></td>
+					</tr>
+				{% endif %}
 			</tbody>
 		</table>
 

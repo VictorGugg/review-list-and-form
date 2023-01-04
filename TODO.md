@@ -1,12 +1,14 @@
-Récupérer toutes les notes (cf ReviewRepository)
-Faire une moyenne des notes et l'appliquer au Product
+Trier par date/note
+Filtrer par note
 
-Redirection du formulaire vers la page produit
-=== OU ===
-Intégrer formulaire avis à la page produit (préférable)
+(Intégrer formulaire avis à la page produit)
 
-Vérifier l'upload d'images
+Message de confirmation sur l'envoi du formulaire
+
+Intégrer un dossier pour les images de produits
 
 Mise en forme des commentaires
+
+Mermaid/markdown sur README.md
 
 Style
