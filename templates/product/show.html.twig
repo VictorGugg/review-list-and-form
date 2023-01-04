@@ -1,15 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Produit
+{% block title %}
+	{{ product.name }}
 {% endblock %}
 
 {% block body %}
-	<h1>Produit</h1>
+	<h1>{{ product.name }}</h1>
 
 	{% if not product.picture %}
 		{# Display nothing if there is no picture for this product #}
 	{% else %}
-		<img src="{{ asset('build/"{{ product.picture }}"') }}" alt="{{ product.name }}" width="300" height="100%">
+		<img src="{{ asset('assets/images/' ~ product.picture) }}" alt="{{ product.name }}" maxwidth="500" height="100%">
 	{% endif %}
 
 	<table class="table">
@@ -20,28 +21,24 @@
 			</tr>
 			<tr>
 				<th>Note moyenne</th>
-				<td>{{ product.rating }}</td>
+				<td>{{ product.rating|round(1) }}</td>
 			</tr>
 		</tbody>
 	</table>
 
 	<h2>Liste des avis</h2>
-	<p>Trier par date :
-		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'submitDate', 'order': 'DESC' }) }}">
+	<p>Trier par :
+		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'submitDate', 'order': 'DESC' }) }}" class="sortBy1">
 			Les plus récents
 		</a>
-		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'submitDate', 'order': 'ASC' }) }}">
+		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'submitDate', 'order': 'ASC' }) }}" class="sortBy1">
 			Les plus anciens
 		</a>
-	</p>
-
-
-	<p>Trier par note :
-		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'user_rating', 'order': 'DESC' }) }}">
-			Les meilleures
+		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'user_rating', 'order': 'DESC' }) }}" class="sortBy1">
+			Les plus favorables
 		</a>
-		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'user_rating', 'order': 'ASC' }) }}">
-			Les moins bonnes
+		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'user_rating', 'order': 'ASC' }) }}" class="sortBy1">
+			Les moins favorables
 		</a>
 	</p>
 

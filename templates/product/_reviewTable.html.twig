@@ -10,7 +10,7 @@
 		</tr>
 		<tr>
 			<th>Commentaire</th>
-			<td>{{ review.comment }}</td>
+			<td>{{ review.comment|striptags('<a>,<b>,<p>,<em>,<li>,<ol>,<strong>,<ul>')|raw }}</td>
 		</tr>
 		{% if not review.picture %}
 			{# Display nothing if there is no picture for this review #}

@@ -74,6 +74,7 @@ final class ReviewController extends AbstractController
             }
 
             return $this->render('review/new.html.twig', [
+                'product' => $product[0],
                 'review' => $review,
                 'form' => $form->createView(),
             ]);
