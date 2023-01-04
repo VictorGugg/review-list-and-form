@@ -39,23 +39,23 @@ Champs de l'entité Review :
 
 Mettre en forme une page produit-avis, qui devra comporter :
 === Affichage du produit ===
--nom
--photo
--note
+-nom ✅
+-photo ✅
+-note (créer méthode pour calculer la note en récupérant toutes les notes des avis) ✅
 
 === Liste des avis ===
--pseudo
--note
--commentaire
--image
--date
+-pseudo ✅
+-note ✅
+-commentaire ✅
+-image ✅
+-date ✅
 
 === Formulaire d'ajout d'avis ===
--email
--pseudo
--note
+-email ✅
+-pseudo ✅
+-note ✅
 -commentaire (avec possibilité de mise en forme)
--upload de photo
+-upload de photo ✅
 (optionnel : si e-mail identique trouvée, proposer de remplacer l'ancien avis par le nouveau)
 
 3.Styling

@@ -12,7 +12,7 @@
 		<div>
 			<h2>{{ loop.index }}
 				-
-				<a href="{{ path("product_show",) }}">
+				<a href="{{ path("product_show", {'id': product.id}) }}">
 					{{ product.name }}</a>
 			</h2>
 		</div>

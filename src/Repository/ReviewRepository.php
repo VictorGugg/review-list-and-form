@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Review[]    findAll()
  * @method Review[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ReviewRepository extends ServiceEntityRepository
+final class ReviewRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -37,6 +37,25 @@ class ReviewRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Get all ratings for one product selected by ID from database.
+     *
+     * @param integer $productId
+     * @return array
+     */
+    public function findAllRatingsByProduct(int $productId): array
+    {
+        return $this->createQueryBuilder('r')
+        ->select('SUM(r.user_rating) as ratings')
+        ->addSelect('COUNT(r.user_rating) as totalRatings')
+        ->innerJoin('r.product', 'p')
+        ->where('p.id = :productId')
+        ->setParameter('productId', $productId)
+        ->getQuery()
+        ->getResult()
+        ;
     }
 
 //    /**
