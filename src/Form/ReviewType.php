@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Review;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -35,7 +36,7 @@ class ReviewType extends AbstractType
                     '5' => 5,
                 ],
             ])
-            ->add('comment', TextareaType::class, [
+            ->add('comment', CKEditorType::class, [
                 'label' => 'Votre commentaire',
             ])
             ->add('picture', FileType::class, [

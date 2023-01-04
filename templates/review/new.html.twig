@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Noter le produit
-	{# {{ product.name }} #}
+	{{ product.name }}
 {% endblock %}
 
 {% block body %}
 	<div class="d-flex flex-column align-items-center mt-4">
 		<h1>Noter le produit
-			{# {{ product.name }} #}
+			{{ product.name }}
 		</h1>
 	</div>
 
 	{{ include('review/_form.html.twig') }}
 
-	<a href="{{ path('product_index') }}">Retour à la page produit</a>
+	<a href="{{ path('product_show', { 'id': product.id }) }}">Retour à la page produit</a>
 {% endblock %}
