@@ -22,9 +22,12 @@ final class ProductController extends AbstractController
     }
 
     #[Route('/{id}', name: 'show', methods: ['GET'])]
-    public function show(Product $product): Response
+    public function show(
+        Product $product,
+        ReviewRepository $reviewRepository): Response
     {
         $reviews = $product->getReviews();
+        $reviews = $reviewRepository->findBy(array(), array('submitDate' => 'DESC'));
 
         return $this->render('product/show.html.twig', [
             'product' => $product,

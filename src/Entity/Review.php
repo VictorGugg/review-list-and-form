@@ -69,7 +69,7 @@ class Review
     // The validation is in the ReviewType.php as the field of the form is not mapped to this entity.
     private ?string $picture = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $submitDate = null;
 
     public function getId(): ?int

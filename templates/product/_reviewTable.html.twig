@@ -1,25 +1,21 @@
-<table class="table">
-	<tbody>
-		<tr>
-			<th>{{ review.pseudo }}</th>
-			<th>{{ review.submitdate|date('d/m/Y') }}</th>
-		</tr>
-		<tr>
-			<th>Note</th>
-			<td>{{ review.userrating }}</td>
-		</tr>
-		<tr>
-			<th>Commentaire</th>
-			<td>{{ review.comment|striptags('<a>,<b>,<p>,<em>,<li>,<ol>,<strong>,<ul>')|raw }}</td>
-		</tr>
+<div class="review">
+	<div class="innerReview">
+		<div class="ratingAndDate">
+			<p>{{ review.userrating }}
+				/ 5</p>
+			<p>le
+				{{ review.submitdate|date('d/m/Y') }}</p>
+		</div>
 		{% if not review.picture %}
-			{# Display nothing if there is no picture for this review #}
+			{# Display only the comment if there is no picture for this review #}
+			<span class="comment">{{ review.comment|striptags('<a>,<b>,<p>,<em>,<li>,<ol>,<strong>,<ul>')|raw }}</span>
 		{% else %}
-			<tr>
-				<th>Image</th>
-				{# Linking the src to the dynamic URL of the stored image #}
-				<td><img src="{{ asset('uploads/' ~ review.picture) }}" alt='Image envoyée par un utilisateur' class='user-img' width="200px" max-height="100%"></td>
-			</tr>
-		{% endif %}
-	</tbody>
-</table>
+			<div class="commentAndImage">
+				<span class="comment">{{ review.comment|striptags('<a>,<b>,<p>,<em>,<li>,<ol>,<strong>,<ul>')|raw }}</span>
+				<img src="{{ asset('uploads/' ~ review.picture) }}" alt='Image envoyée par un utilisateur' width="200px" max-height="100%"></td>
+		</div>
+	{% endif %}
+
+	<p class="author">posté par
+		{{ review.pseudo }}</p>
+</div></div>

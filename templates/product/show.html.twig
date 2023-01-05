@@ -1,33 +1,34 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" href="/assets/style/style.css">
+{% endblock %}
+
 {% block title %}
 	{{ product.name }}
 {% endblock %}
 
 {% block body %}
-	<h1>{{ product.name }}</h1>
+	<div class="header">
+		<div class="name-logo">
+			<h1>{{ product.name }}</h1>
 
-	{% if not product.picture %}
-		{# Display nothing if there is no picture for this product #}
-	{% else %}
-		<img src="{{ asset('assets/images/' ~ product.picture) }}" alt="{{ product.name }}" maxwidth="500" height="100%">
-	{% endif %}
+			{% if not product.picture %}
+				{# Display nothing if there is no picture for this product #}
+			{% else %}
+				<img src="{{ asset('assets/images/' ~ product.picture) }}" alt="{{ product.name }}" id="productPicture">
+			{% endif %}
+		</div>
 
-	<table class="table">
-		<tbody>
-			<tr>
-				<th>Nom</th>
-				<td>{{ product.name }}</td>
-			</tr>
-			<tr>
-				<th>Note moyenne</th>
-				<td>{{ product.rating|round(1) }}</td>
-			</tr>
-		</tbody>
-	</table>
+		<div id="headerRating">
+			<h4>Note moyenne</h4>
+			<p>{{ product.rating|round(1) }}</p>
+		</div>
+	</div>
 
 	<h2>Liste des avis</h2>
-	<p>Trier par :
+
+	<p class="sortBy">Trier par :
 		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'submitDate', 'order': 'DESC' }) }}" class="sortBy1">
 			Les plus récents
 		</a>
@@ -42,9 +43,7 @@
 		</a>
 	</p>
 
-	{% set sort = 'ratingAsc' %}
-
-	<p>Afficher seulement les notes :
+	<p class="sortBy">Afficher seulement les notes :
 		<a href="{{ path('product_show_by_rating', { 'id': product.id, 'rating' : 1 }) }}">1</a>
 		<a href="{{ path('product_show_by_rating', { 'id': product.id, 'rating' : 2 }) }}">2</a>
 		<a href="{{ path('product_show_by_rating', { 'id': product.id, 'rating' : 3 }) }}">3</a>
@@ -52,15 +51,17 @@
 		<a href="{{ path('product_show_by_rating', { 'id': product.id, 'rating' : 5 }) }}">5</a>
 	</p>
 
-	{% for review in reviews %}
-		{{ include('product/_reviewTable.html.twig') }}
+	<h3>
+		<a href="{{ path('review_new', { 'product_id' : product.id }) }}">Noter le produit</a>
+	</h3>
 
-	{% else %}
-		<p>Il n'existe pas encore d'avis sur ce produit. Donnez le vôtre !</p>
-	{% endfor %}
-
-
-	<a href="{{ path('review_new', { 'product_id' : product.id }) }}">Noter le produit</a>
+	<div id="reviewSection">
+		{% for review in reviews %}
+			{{ include('product/_reviewTable.html.twig') }}
+		{% else %}
+			<p>Il n'existe pas encore d'avis sur ce produit. Donnez le vôtre !</p>
+		{% endfor %}
+	</div>
 
 	<a href="{{ path('product_index') }}">Retour à la liste des produits</a>
 {% endblock %}
