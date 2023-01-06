@@ -1,3 +1,5 @@
+/* GLOBAL STYLING */
+
 body {
     /* text-align: center; */
     color: #36313C;
@@ -17,7 +19,11 @@ a {
     color: inherit;
 }
 
-/* All classes */
+.fa-star, .fa-star-o, .fa-star-half-o {
+    color: orange;
+  }
+
+/* HEADER STYLING */
 
 .header {
     display: flex;
@@ -50,6 +56,14 @@ a {
     padding-right: 3rem;
 }
 
+#productPicture {
+    max-width: 250px;
+    height: 100%;
+    padding: 0rem 0 2rem 0;
+}
+
+/* REVIEW STYLING */
+
 .sortBy {
     display: flex;
     justify-content: space-between;
@@ -67,14 +81,6 @@ a {
     background: #F7FCFF;
     border-radius: 0.5rem;
     cursor: pointer;
-}
-
-/* All IDs */
-
-#productPicture {
-    max-width: 250px;
-    height: 100%;
-    padding: 0rem 0 2rem 0;
 }
 
 #reviewManager {
@@ -217,10 +223,8 @@ button#review_save {
     cursor: pointer;
 }
 
-.fa-star, .fa-star-o, .fa-star-half-o {
-    color: orange;
-  }
 
+/* MEDIA QUERIES */
 
 @media screen and (max-width: 1150px) {
     .sortBy a {
