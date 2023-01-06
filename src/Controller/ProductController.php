@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/product', name: 'product_')]
 final class ProductController extends AbstractController
 {
+    // Used in HomeController to display the product list on the home page
     #[Route('/', name: 'index')]
     public function index(ProductRepository $productRepository): Response
     {
@@ -22,9 +23,12 @@ final class ProductController extends AbstractController
     }
 
     #[Route('/{id}', name: 'show', methods: ['GET'])]
-    public function show(Product $product): Response
+    public function show(
+        Product $product,
+        ReviewRepository $reviewRepository): Response
     {
         $reviews = $product->getReviews();
+        $reviews = $reviewRepository->findBy(array(), array('submitDate' => 'DESC'));
 
         return $this->render('product/show.html.twig', [
             'product' => $product,

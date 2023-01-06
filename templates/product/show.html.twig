@@ -1,66 +1,139 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+	<link
+	rel="stylesheet" href="/assets/style/style.css">
+
+	{# Star icon library #}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
 {% block title %}
 	{{ product.name }}
 {% endblock %}
 
 {% block body %}
-	<h1>{{ product.name }}</h1>
+	<div class="header">
+		<div class="name-logo">
+			<h1>{{ product.name }}</h1>
 
-	{% if not product.picture %}
-		{# Display nothing if there is no picture for this product #}
-	{% else %}
-		<img src="{{ asset('assets/images/' ~ product.picture) }}" alt="{{ product.name }}" maxwidth="500" height="100%">
-	{% endif %}
+			{% if not product.picture %}
+				{# Display nothing if there is no picture for this product #}
+			{% else %}
+				<img src="{{ asset('assets/images/' ~ product.picture) }}" alt="{{ product.name }}" id="productPicture">
+			{% endif %}
+		</div>
 
-	<table class="table">
-		<tbody>
-			<tr>
-				<th>Nom</th>
-				<td>{{ product.name }}</td>
-			</tr>
-			<tr>
-				<th>Note moyenne</th>
-				<td>{{ product.rating|round(1) }}</td>
-			</tr>
-		</tbody>
-	</table>
+		<div id="headerRating">
+			<h4>Note moyenne</h4>
+			<p>
+				{{ product.rating|round(1) }}
+				{# Display stars based on rating #}
+				{% if product.rating < 1.3 %}
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star-o"></span>
+					<span class="fa fa-star-o"></span>
+					<span class="fa fa-star-o"></span>
+					<span class="fa fa-star-o"></span>
 
-	<h2>Liste des avis</h2>
-	<p>Trier par :
-		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'submitDate', 'order': 'DESC' }) }}" class="sortBy1">
+				{% elseif product.rating < 1.8 %}
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star-half-o"></span>
+					<span class="fa fa-star-o"></span>
+					<span class="fa fa-star-o"></span>
+					<span class="fa fa-star-o"></span>
+
+				{% elseif product.rating < 2.3 %}
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star-o"></span>
+					<span class="fa fa-star-o"></span>
+					<span class="fa fa-star-o"></span>
+
+				{% elseif product.rating < 2.8 %}
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star-half-o"></span>
+					<span class="fa fa-star-o"></span>
+					<span class="fa fa-star-o"></span>
+
+				{% elseif product.rating < 3.3 %}
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star-o"></span>
+					<span class="fa fa-star-o"></span>
+
+				{% elseif product.rating < 3.8 %}
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star-half-o"></span>
+					<span class="fa fa-star-o"></span>
+
+				{% elseif product.rating < 4.3 %}
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star-o"></span>
+
+				{% elseif product.rating < 4.8 %}
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star-half-o"></span>
+
+				{% elseif product.rating == 5 %}
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+				{% endif %}
+			</p>
+		</p>
+	</div>
+</div>
+
+<h2>Liste des avis</h2>
+
+<div id="reviewManager">
+	<h3 class="sortBy">Trier par :
+		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'submitDate', 'order': 'DESC' }) }}">
 			Les plus récents
 		</a>
-		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'submitDate', 'order': 'ASC' }) }}" class="sortBy1">
+		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'submitDate', 'order': 'ASC' }) }}">
 			Les plus anciens
 		</a>
-		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'user_rating', 'order': 'DESC' }) }}" class="sortBy1">
+		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'user_rating', 'order': 'DESC' }) }}">
 			Les plus favorables
 		</a>
-		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'user_rating', 'order': 'ASC' }) }}" class="sortBy1">
+		<a href="{{ path('product_sort_by_order', { 'id': product.id, 'sort' : 'user_rating', 'order': 'ASC' }) }}">
 			Les moins favorables
 		</a>
-	</p>
+	</h3>
 
-	{% set sort = 'ratingAsc' %}
-
-	<p>Afficher seulement les notes :
+	<h3 class="sortBy">Afficher seulement les notes :
 		<a href="{{ path('product_show_by_rating', { 'id': product.id, 'rating' : 1 }) }}">1</a>
 		<a href="{{ path('product_show_by_rating', { 'id': product.id, 'rating' : 2 }) }}">2</a>
 		<a href="{{ path('product_show_by_rating', { 'id': product.id, 'rating' : 3 }) }}">3</a>
 		<a href="{{ path('product_show_by_rating', { 'id': product.id, 'rating' : 4 }) }}">4</a>
 		<a href="{{ path('product_show_by_rating', { 'id': product.id, 'rating' : 5 }) }}">5</a>
-	</p>
+	</h3>
 
+	<h2>
+		<a href="{{ path('review_new', { 'product_id' : product.id }) }}" id="reviewButton">Noter le produit</a>
+	</h2>
+</div>
+
+<div id="reviewSection">
 	{% for review in reviews %}
 		{{ include('product/_reviewTable.html.twig') }}
-
 	{% else %}
 		<p>Il n'existe pas encore d'avis sur ce produit. Donnez le vôtre !</p>
 	{% endfor %}
+</div>
 
-
-	<a href="{{ path('review_new', { 'product_id' : product.id }) }}">Noter le produit</a>
-
-	<a href="{{ path('product_index') }}">Retour à la liste des produits</a>
-{% endblock %}
+<a href="{{ path('product_index') }}">Retour à la liste des produits</a>{% endblock %}

@@ -22,9 +22,11 @@ class ReviewType extends AbstractType
         $builder
             ->add('user_email', EmailType::class, [
                 'label' => 'Votre e-mail',
+                'priority' => 5
             ])
             ->add('pseudo', TextType::class, [
                 'label' => 'Votre pseudo',
+                'priority' => 4
             ])
             ->add('user_rating', ChoiceType::class, [
                 'label' => 'Notez le produit',
@@ -35,12 +37,14 @@ class ReviewType extends AbstractType
                     '4' => 4,
                     '5' => 5,
                 ],
+                'priority' => 3
             ])
             ->add('comment', CKEditorType::class, [
                 'label' => 'Votre commentaire',
+                'priority' => 2
             ])
             ->add('picture', FileType::class, [
-                'label' => 'Image',
+                'label' => 'Image (optionnelle)',
                 // optionnal so the user don't have to re-upload when editing the comment
                 'required' => false,
                 // unmapping this field so that Symfony doesn't try to get/set its value from the Review Entity
@@ -55,10 +59,12 @@ class ReviewType extends AbstractType
                         'maxSizeMessage' => 'Votre fichier d\'image est trop lourd, il doit faire {{ limit }} ou moins.',
                         'mimeTypesMessage' => 'Merci de choisir un fichier d\'image valide (JPG, PNG, BMP...)',
                     ])
-                ]
+                    ],
+                'priority' => 1
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Envoyer',
+                'priority' => 0,
             ])
         ;
     }
