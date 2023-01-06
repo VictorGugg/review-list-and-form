@@ -2,20 +2,57 @@
 	<div class="innerReview">
 		<div class="ratingAndDate">
 			<p>{{ review.userrating }}
-				/ 5</p>
-			<p>le
-				{{ review.submitdate|date('d/m/Y') }}</p>
-		</div>
-		{% if not review.picture %}
-			{# Display only the comment if there is no picture for this review #}
-			<span class="comment">{{ review.comment|striptags('<a>,<b>,<p>,<em>,<li>,<ol>,<strong>,<ul>')|raw }}</span>
-		{% else %}
-			<div class="commentAndImage">
-				<span class="comment">{{ review.comment|striptags('<a>,<b>,<p>,<em>,<li>,<ol>,<strong>,<ul>')|raw }}</span>
-				<img src="{{ asset('uploads/' ~ review.picture) }}" alt='Image envoyée par un utilisateur' width="200px" max-height="100%"></td>
-		</div>
-	{% endif %}
+				/ 5
+				{# Display stars based on rating #}
+				{% if review.userrating == 1 %}
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star-o"></span>
+					<span class="fa fa-star-o"></span>
+					<span class="fa fa-star-o"></span>
+					<span class="fa fa-star-o"></span>
 
-	<p class="author">posté par
-		{{ review.pseudo }}</p>
-</div></div>
+				{% elseif review.userrating == 2 %}
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star-o"></span>
+					<span class="fa fa-star-o"></span>
+					<span class="fa fa-star-o"></span>
+
+				{% elseif review.userrating == 3 %}
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star-o"></span>
+					<span class="fa fa-star-o"></span>
+
+				{% elseif review.userrating == 4 %}
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star-o"></span>
+
+				{% elseif review.userrating == 5 %}
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+				{% endif %}
+			</p>
+		</p>
+		<p>le
+			{{ review.submitdate|date('d/m/Y') }}</p>
+	</div>
+	{% if not review.picture %}
+		{# Display only the comment if there is no picture for this review #}
+		<span class="comment">{{ review.comment|striptags('<a>,<b>,<p>,<em>,<li>,<ol>,<strong>,<ul>')|raw }}</span>
+	{% else %}
+		<div class="commentAndImage">
+			<span class="comment">{{ review.comment|striptags('<a>,<b>,<p>,<em>,<li>,<ol>,<strong>,<ul>')|raw }}</span>
+			<img src="{{ asset('uploads/' ~ review.picture) }}" alt='Image envoyée par un utilisateur' width="200px" max-height="100%"></td>
+	</div>
+{% endif %}
+
+<p class="author">posté par
+	{{ review.pseudo }}</p></div></div>

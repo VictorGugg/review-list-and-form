@@ -1,13 +1,15 @@
 body {
     /* text-align: center; */
     color: #36313C;
+    background-color: #f6f6fa;
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
 }
 
 h2 {
     text-align: center;
 }
 
-h3 {
+h4 {
     padding-left: 10vw;
 }
 
@@ -25,12 +27,13 @@ a {
     margin: 0 25% 2rem 25%;
     box-sizing: border-box;
     border-radius: 0.5rem;
-    border: 1px solid #0957ff3f;
+    border: 3px solid #0957ff3f;
     background: #F7FCFF;
 }
 
 .name-logo {
     display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     padding: 0 3rem;
@@ -50,17 +53,47 @@ a {
 .sortBy {
     display: flex;
     justify-content: space-between;
-    margin: 0 10% 0.5rem;
+    margin: 0 10% 2rem;
+    align-items: center;
+}
+
+.sortBy a {
+    text-decoration: inherit;
+    padding: 0.5rem 1rem;
+    border: 2px solid #cccdcf;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #4d4853;
+    background: #F7FCFF;
+    border-radius: 0.5rem;
+    cursor: pointer;
 }
 
 /* All IDs */
 
 #productPicture {
-    max-width: 500px;
+    max-width: 250px;
     height: 100%;
+    padding: 0rem 0 2rem 0;
 }
 
+#reviewManager {
+    padding: 1rem 0 2rem;
+    border-top: 2px solid #E5E7EB;
+}
 
+#reviewButton {
+    padding: 0.8rem 13rem;
+    text-decoration: inherit;
+    margin-bottom: 8rem;
+    border: 2px solid #cccdcf;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #4d4853;
+    background: #F7FCFF;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
 
 #reviewSection {
     display: flex;
@@ -73,7 +106,7 @@ a {
 .review {
     box-sizing: border-box;
     border-radius: 0.5rem;
-    border: 1px solid rgb(229,231,235);
+    border: 2px solid #E5E7EB;
     margin-bottom: 1rem;
     color: #4B5563;
     background: #F7FCFF;
@@ -95,7 +128,7 @@ a {
 .ratingAndDate {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid rgb(229,231,235);
+    border-bottom: 1px solid #E5E7EB;
     margin-bottom: 0.5rem;
     width: 100%;
 }
@@ -118,14 +151,90 @@ a {
 
 p.author {
     padding-top: 0.25rem;
-    border-top: 1px solid rgb(229,231,235);
+    border-top: 1px solid #E5E7EB;
     width: 70%;
     font-weight: 600;
     font-style: italic;
     margin: 0;
 }
 
-@media screen and (max-width: 1099px) {
+/* FORM STYLING */
+
+#formTitle {
+    text-align: center;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 0.5rem;
+    margin-left: 13%;
+}
+
+input {
+    margin-bottom: 1rem;
+    margin-left: 10%;
+    padding: 0.5rem 0.3rem;
+    width: 80%;
+    border-radius: 0.3rem;
+    border: 2px solid #E5E7EB; 
+}
+
+select {
+    margin-bottom: 1rem;
+    margin-left: 10%;
+    padding: 0.5rem 1rem;
+    width: 30%;
+    border-radius: 0.3rem;
+    border: 2px solid #E5E7EB;
+}
+
+#cke_review_comment {
+    margin-bottom: 1rem;
+    margin-left: 10%;
+    width: 80%;
+    border-radius: 0.3rem;
+    border: 2px solid #E5E7EB;
+}
+
+#review_picture {
+    border-radius: 0;
+    padding-left: 2rem;
+    border: none;
+}
+
+button#review_save {
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 8% 1rem;
+    border: 2px solid #cccdcf;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #4d4853;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.fa-star, .fa-star-o, .fa-star-half-o {
+    color: orange;
+  }
+
+
+@media screen and (max-width: 1150px) {
+    .sortBy a {
+        text-decoration: inherit;
+        padding: 0.3rem 0.5rem;
+        border: 2px solid #cccdcf;
+        font-size: 1rem;
+        font-weight: 400;
+        color: #4d4853;
+        background: #F7FCFF;
+        border-radius: 0.5rem;
+        cursor: pointer;
+    }
+
     #reviewSection {
         flex-direction: column;
     }

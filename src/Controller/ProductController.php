@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/product', name: 'product_')]
 final class ProductController extends AbstractController
 {
+    // Used in HomeController to display the product list on the home page
     #[Route('/', name: 'index')]
     public function index(ProductRepository $productRepository): Response
     {
