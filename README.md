@@ -60,4 +60,4 @@ Mettre en forme une page produit-avis, qui devra comporter :
 
 3.Styling
 
-Rendre le tout agréable à l'oeil et à l'utilisation.
+Rendre le tout agréable à l'oeil et à l'utilisation ✅
