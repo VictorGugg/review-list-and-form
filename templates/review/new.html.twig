@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="/assets/style/style.css">
+{% endblock %}
+
+{% block title %}Noter le produit
+	{{ product.name }}
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex flex-column align-items-center mt-4">
+		<h1 id="formTitle">Noter le produit
+			{{ product.name }}
+		</h1>
+	</div>
+
+	{{ include('review/_form.html.twig') }}
+
+	<h4>
+		<a href="{{ path('product_show', { 'id': product.id }) }}">Retour à la page produit</a>
+	</h4>
+{% endblock %}
