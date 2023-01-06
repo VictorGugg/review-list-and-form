@@ -30,6 +30,8 @@ final class ProductController extends AbstractController
         $reviews = $product->getReviews();
         $reviews = $reviewRepository->findBy(array(), array('submitDate' => 'DESC'));
 
+        $this->displayGlobalRating($reviewRepository, $product);
+
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'reviews' => $reviews
@@ -61,6 +63,8 @@ final class ProductController extends AbstractController
     {
         $reviews = $product->getReviews();
         $reviews = $reviewRepository->findBy(array(), array($sort => $order));
+
+        $this->displayGlobalRating($reviewRepository, $product);
         
 
         return $this->render('product/show.html.twig', [
@@ -68,4 +72,16 @@ final class ProductController extends AbstractController
             'reviews' => $reviews
         ]);
     }
+
+        public function displayGlobalRating (
+            ReviewRepository $reviewRepository,
+            Product $product): void
+        {
+            // DISPLAY GLOBAL RATING
+            // ! Only useful when generating fake data, can be removed for production
+            $rating = $reviewRepository->findAllRatingsByProduct($product->getId());
+            $numberOfRatings = $rating[0]['totalRatings'];
+            $finalRating = $rating[0]['ratings'] / $numberOfRatings;
+            $product->setRating($finalRating);
+        }
 }
